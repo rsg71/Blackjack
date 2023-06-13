@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/Blackjack/static/css/main.073c9b0a.css",
+    "main.js": "/Blackjack/static/js/main.1ce26755.js",
+    "static/js/787.a539f6db.chunk.js": "/Blackjack/static/js/787.a539f6db.chunk.js",
+    "static/media/422px-Blackjack.svg.png": "/Blackjack/static/media/422px-Blackjack.svg.d7e2f6f0a79c6cd8a297.png",
+    "index.html": "/Blackjack/index.html",
+    "main.073c9b0a.css.map": "/Blackjack/static/css/main.073c9b0a.css.map",
+    "main.1ce26755.js.map": "/Blackjack/static/js/main.1ce26755.js.map",
+    "787.a539f6db.chunk.js.map": "/Blackjack/static/js/787.a539f6db.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.073c9b0a.css",
+    "static/js/main.1ce26755.js"
+  ]
+}
