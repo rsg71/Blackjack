@@ -1,3 +1,4 @@
+import { IFullCard } from "../data/cardOptions";
 import { SuitEnum } from "../util/enums";
 
 export interface ICard {
@@ -5,3 +6,5 @@ export interface ICard {
     value: string;
     suit: SuitEnum;
 }
+
+export type DeckType = IFullCard[];

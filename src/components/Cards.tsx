@@ -1,16 +1,15 @@
-import React from 'react'
+import { IFullCard } from '../data/cardOptions'
 import Card from './Card'
-import { ICard } from '../interfaces'
 
 interface Props {
-    cards: ICard[]
+    cards: IFullCard[]
 }
 
 export default function Cards({ cards }: Props) {
     return (
         <div>
             {cards.map(card => (
-                <Card value={card.value} suit={card.suit} />
+                    <Card card={card}/>
             ))}
         </div>
     )
