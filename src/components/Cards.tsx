@@ -9,7 +9,7 @@ export default function Cards({ cards }: Props) {
     return (
         <div>
             {cards.map(card => (
-                    <Card card={card}/>
+                <Card card={card} />
             ))}
         </div>
     )
