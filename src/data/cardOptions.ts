@@ -95,3 +95,6 @@ let deck = createCardsForEachSuit();
 
 
 export default deck;
+
+
+export const fruits = ['apple', 'mango', 'peach', 'watermelon', 'raspberry', 'kiwi']

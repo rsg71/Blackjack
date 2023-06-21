@@ -1,4 +1,4 @@
-import deck, { IFullCard } from "../data/cardOptions";
+import deck, { IFullCard, fruits } from "../data/cardOptions";
 import { DeckType } from "../interfaces";
 
 
@@ -49,4 +49,28 @@ export class Dealer {
 function getRandomNum(max: number) {
     let num = Math.floor(Math.random() * max - 0 + 1);
     return num;
+}
+
+
+export function getValueFromCards(cards: IFullCard[]) {
+    let total = 0;
+    for (let card of cards) {
+        total += card.value;
+    }
+    return total;
+}
+
+
+
+
+
+
+export function randomInt(min: number, max: number) { // min and max included 
+    return Math.floor(Math.random() * (max - min + 1) + min)
+}
+
+
+export function getRandomFruit() {
+    let num = randomInt(0, 5);
+    return fruits[num]
 }
