@@ -14,7 +14,7 @@ export default function Buttons({ hasDealt, hasStayed, dealCards, hit, stay }: P
     const showStay = hasDealt && !hasStayed;
 
     return (
-        <div className="row">
+        <div className="row mb-2 mt-1">
             <div className="col">
                 {showDeal ?
                     <button className={btnStyle} onClick={dealCards}>Deal</button>

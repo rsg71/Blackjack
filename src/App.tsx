@@ -38,6 +38,7 @@ function App() {
   useEffect(() => {
     if (userValue === 21) {
       setIsBlackJack(true);
+      setWinner(Person.User);
       return;
     }
     if (userValue > 21) {
@@ -100,15 +101,18 @@ function App() {
       // dealer is equal to player --> keep playing (unless 21, then nobody wins)
       // dealer has less than player --> keep going
 
-      if (dealerValue < userValue && hasStayed) {
-        console.log('we are in the useEffect!')
+      if (dealerValue === userValue && hasStayed) {
+        // continue playing...
+        const timeoutFunction = setInterval(handleTimer, 2000)
+        return () => clearInterval(timeoutFunction);
+      }
+      else if (dealerValue < userValue && hasStayed) {
+        // console.log('we are in the useEffect!')
 
         const timeoutFunction = setInterval(handleTimer, 2000)
         return () => clearInterval(timeoutFunction);
-
       }
-
-      if (dealerValue > userValue && hasStayed) {
+      else if (dealerValue > userValue && hasStayed) {
         console.log(`DEALER WINS with ${dealerValue} (player had ${userValue}) AFTER PLAYING AFTER STAY!`)
         setWinner(Person.Dealer);
         return;
@@ -233,8 +237,8 @@ function App() {
     <div className="App container container-fluid">
 
       <header
-       className="App-header"
-       >
+        className="App-header"
+      >
 
         <img src={logo} className="App-logo" alt="logo" />
 
