@@ -2,7 +2,7 @@ import { IFullCard } from '../data/cardOptions'
 import Card from './Card'
 
 interface Props {
-    cards: IFullCard[]
+    cards: IFullCard[];
 }
 
 export default function Cards({ cards }: Props) {

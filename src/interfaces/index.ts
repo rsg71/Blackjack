@@ -8,3 +8,11 @@ export interface ICard {
 }
 
 export type DeckType = IFullCard[];
+
+
+
+export enum Person {
+    User = 'User',
+    Dealer = 'Dealer',
+    Nobody = 'Nobody'
+}
