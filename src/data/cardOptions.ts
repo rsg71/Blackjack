@@ -39,19 +39,19 @@ export const cardOptions = [
     },
     {
         name: CardEnum.Jack,
-        numeric: 11
+        numeric: 10
     },
     {
         name: CardEnum.Queen,
-        numeric: 12
+        numeric: 10
     },
     {
         name: CardEnum.King,
-        numeric: 13
+        numeric: 10
     },
     {
         name: CardEnum.Ace,
-        numeric: 1
+        numeric: 11
     },
 
 ]
