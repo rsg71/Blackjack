@@ -56,6 +56,7 @@ export const cardOptions = [
 
 ]
 
+const faceCards = [CardEnum.Jack, CardEnum.Queen, CardEnum.King];
 
 
 const suits = [SuitEnum.CLUBS, SuitEnum.DIAMONDS, SuitEnum.SPADES, SuitEnum.HEARTS]
@@ -88,6 +89,10 @@ function createCardsForEachSuit(): IFullCard[] {
     }
 
     return allCards;
+}
+
+export function isFaceCard(card: IFullCard): boolean {
+    return faceCards.includes(card.name)
 }
 
 

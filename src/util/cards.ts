@@ -1,5 +1,5 @@
-import { IFullCard } from "../data/cardOptions"
-import { SuitEnum } from "./enums"
+import { IFullCard, isFaceCard } from "../data/cardOptions"
+import { CardEnum, SuitEnum } from "./enums"
 
 export function getSuitIcon(suit: SuitEnum): string {
 
@@ -27,8 +27,8 @@ export function formatColor(suit: SuitEnum) {
 }
 
 export function formatDisplayName(card: IFullCard) {
-    if (card.value > 10 || card.value === 1) {
-        return card.name
+    if (isFaceCard(card) || card.name === CardEnum.Ace) {
+        return card.name;
     } else {
         return card.value;
     }

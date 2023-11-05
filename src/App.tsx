@@ -6,6 +6,7 @@ import Buttons from './components/Buttons';
 import Cards from './components/Cards';
 import { Person } from './interfaces';
 import './App.css';
+import Card from './components/Card';
 
 
 function App() {
@@ -16,7 +17,8 @@ function App() {
   const [currDeck, setCurrDeck] = useState(deck);
 
   const [cards, setCards] = useState<IFullCard[]>([]);
-  const [dealerCards, setDealerCards] = useState<any[]>([]);
+  const [dealerCards, setDealerCards] = useState<IFullCard[]>([]);
+  const [showBackOfDealerCard, setShowBackOfDealerCard] = useState(true);
 
   // Card Values
   const [userValue, setUserValue] = useState(0);
@@ -169,24 +171,45 @@ function App() {
   // ========================================
 
 
+
+  function flipDealerFirstCard() {
+      setShowBackOfDealerCard(false);
+  }
+
+  // function waitForTime(seconds: number) {
+  //   setTimeout(() => {
+
+  //   }, seconds)
+  // }
+
+
   function playAsDealer() {
     console.log('playAsDealer()')
-    setDealingForDealer(true);
-    // if user has chosen to "stay", dealer needs to play until they beat the user or go over 21
 
-    // check if dealer has greater value than user
-    // if they have, dealer wins
+    flipDealerFirstCard();
 
-    const isDealerValGreater = dealerValue > userValue;
-    if (isDealerValGreater && dealerValue <= 21) {
-      setWinner(Person.Dealer);
-    } else if (dealerValue > 21) {
-      console.log('dealerValue > 21')
-      setWinner(Person.User) // ✍ WE NEED TO HANDLE THIS EXCEPTION WHERE NOBODY WINS
-    } else {
-      // continue hitting until dealer value is greater than player, or dealer loses
-      console.log('dealer value is neither greater than 21 nor greater than user\'s value')
-    }
+    // flip card, then set short timeout
+
+    setTimeout(() => {
+      setDealingForDealer(true);
+
+      // if user has chosen to "stay", dealer needs to play until they beat the user or go over 21
+      // check if dealer has greater value than user
+      // if they have, dealer wins
+
+      const isDealerValGreater = dealerValue > userValue;
+      if (isDealerValGreater && dealerValue <= 21) {
+        setWinner(Person.Dealer);
+      } else if (dealerValue > 21) {
+        console.log('dealerValue > 21')
+        setWinner(Person.User) // ✍ WE NEED TO HANDLE THIS EXCEPTION WHERE NOBODY WINS
+      } else {
+        // continue hitting until dealer value is greater than player, or dealer loses
+        console.log('dealer value is neither greater than 21 nor greater than user\'s value')
+      }
+
+    }, 3000)
+
   }
 
 
@@ -226,18 +249,49 @@ function App() {
       setHasDealt(false);
       setIsBlackJack(false);
       setHasStayed(false);
+
+      setShowBackOfDealerCard(true);
     }, 2000)
   }
 
 
 
 
+  function displayDealerValue(): string {
+    if (showBackOfDealerCard === false) {
+      return dealerValue.toString();
+    } else {
+      const secondCard = dealerCards[1];
+
+      if (secondCard) {
+        const secondCardValue = getValueFromCards([secondCard]);
+        console.log('secondCardValue: ', secondCardValue);
+        return secondCardValue.toString();
+      }
+      return ''
+    }
+  };
+
+
+  function DealerCards() {
+    if (dealingForDealer) {
+      return <Cards cards={dealerCards} />
+    } else {
+      return (
+        <>
+          <Card card={dealerCards[0]} showBack={showBackOfDealerCard} />
+          <Card card={dealerCards[1]} />
+        </>
+      )
+    }
+
+  }
+
 
   return (
-    <div className="App container container-fluid">
+    <div className="container container-fluid">
 
       <header
-        className="App-header"
       >
 
         <img src={logo} className="App-logo" alt="logo" />
@@ -245,41 +299,61 @@ function App() {
         {didPlayerWin && <div className="bg-success rounded">You win!</div>}
         {dealingForDealer && <div className="bg-info rounded p-1">Dealing for dealer...</div>}
 
-        <Buttons
-          hasDealt={hasDealt}
-          hasStayed={hasStayed}
-          dealCards={dealCards}
-          hit={hit}
-          stay={stay}
-        />
 
 
-        <div className="row">
-          <div className="col">
 
-            {didPlayerLose && <div className="bg-danger" style={{ visibility: 'hidden' }}>A</div>}
-            {isBlackjack && <div className="bg-success rounded">Blackjack!</div>}
 
-            <h2>Your cards</h2>
-            <div>{userValue.toString()}</div>
-            <Cards cards={cards} />
+      </header >
+
+
+      <Buttons
+        hasDealt={hasDealt}
+        hasStayed={hasStayed}
+        dealCards={dealCards}
+        hit={hit}
+        stay={stay}
+      />
+
+      <div className="row Thing">
+        <div className="col">
+          {didPlayerLose && <div className="bg-danger" style={{ visibility: 'hidden' }}>A</div>}
+          {isBlackjack && <div className="bg-success rounded">Blackjack!</div>}
+
+          <h2>Your cards</h2>
+
+
+          <div className="row">
+            <div className="col">
+              <h2>{userValue.toString()}</h2>
+            </div>
           </div>
 
 
-          <div className="col">
-            {didDealerWin && <div className="bg-warning rounded">Dealer wins!</div>}
+          <Cards cards={cards} />
 
-            <h2>Dealer's cards</h2>
-            <div>{dealerValue.toString()}</div>
-
-            <Cards cards={dealerCards} />
-
-          </div>
         </div>
 
+        <div className="col">
+          {didDealerWin && <div className="bg-warning rounded">Dealer wins!</div>}
 
-      </header>
-    </div>
+
+          <h2>Dealer cards</h2>
+
+
+
+          <div className="row">
+            <div className="col">
+              <h2>{displayDealerValue()}</h2>
+            </div>
+          </div>
+
+
+          <DealerCards />
+
+        </div>
+      </div>
+
+    </div >
   );
 }
 
